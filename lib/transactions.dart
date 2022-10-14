@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 
 class Transaction extends StatelessWidget {
-  final String transaction;
+  final String transactionName;
   final String ammount;
   final String incomeOrExp;
   const Transaction(
       {super.key,
-      required this.transaction,
+      required this.transactionName,
       required this.ammount,
       required this.incomeOrExp});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 3),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(12),
         child: Container(
@@ -25,11 +25,20 @@ class Transaction extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    transaction,
-                    style: const TextStyle(
-                      fontSize: 16,
-                    ),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.paid,
+                        color: Colors.grey[500],
+                      ),
+                      const SizedBox(width: 4),
+                      Text(
+                        transactionName,
+                        style: const TextStyle(
+                          fontSize: 16,
+                        ),
+                      ),
+                    ],
                   ),
                   Text(
                     '${incomeOrExp == 'expence' ? ' - ' : ' + '}\$ $ammount',

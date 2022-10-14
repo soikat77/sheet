@@ -30,7 +30,7 @@ class GoogleSheetsApi {
   static Worksheet? _worksheet;
 
   // keeping track of
-  static int tansactionCount = 0;
+  static int transactionCount = 0;
   static List<List<dynamic>> currentTransactions = [];
   static bool loading = true;
 
@@ -38,5 +38,41 @@ class GoogleSheetsApi {
   Future init() async {
     final ss = await _gsheets.spreadsheet(_spreadsheetId);
     _worksheet = ss.worksheetByTitle('summery');
+    countRow();
+  }
+
+  // count the number of Row
+  static Future countRow() async {
+    while ((await _worksheet!.values
+            .value(column: 1, row: transactionCount + 1)) !=
+        '') {
+      transactionCount++;
+    }
+    // thats how we know how many transaction are made
+    loadTransaction();
+  }
+
+  // load existins transaction from the spreadsheet
+  static Future loadTransaction() async {
+    if (_worksheet == null) return;
+
+    for (int i = 1; i < transactionCount; i++) {
+      final String transactionName =
+          await _worksheet!.values.value(column: 1, row: i + 1);
+      final String transactionAmount =
+          await _worksheet!.values.value(column: 2, row: i + 1);
+      final String transactionType =
+          await _worksheet!.values.value(column: 3, row: i + 1);
+
+      if (currentTransactions.length < transactionCount) {
+        currentTransactions.add([
+          transactionName,
+          transactionAmount,
+          transactionType,
+        ]);
+      }
+    }
+    // stop the loading indicator
+    loading = false;
   }
 }

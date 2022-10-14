@@ -19,7 +19,10 @@ class TopNeuCard extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(12.0),
         height: 250,
-        color: Colors.grey[200],
+        decoration: BoxDecoration(
+          color: Colors.grey[200],
+          borderRadius: BorderRadius.circular(12),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -33,7 +36,7 @@ class TopNeuCard extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(height: 12.0),
+            const SizedBox(height: 8.0),
             Text(
               '\$ $balance',
               style: const TextStyle(fontSize: 36),
@@ -69,10 +72,10 @@ class TopNeuCard extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        const SizedBox(height: 12),
+                        const SizedBox(height: 5),
                         Text(
                           '\$ $income',
-                          style: const TextStyle(fontSize: 28),
+                          style: const TextStyle(fontSize: 24),
                         ),
                       ],
                     ),
@@ -91,10 +94,10 @@ class TopNeuCard extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        const SizedBox(height: 12),
+                        const SizedBox(height: 5),
                         Text(
                           '\$ $expence',
-                          style: const TextStyle(fontSize: 28),
+                          style: const TextStyle(fontSize: 24),
                         ),
                       ],
                     ),
