@@ -24,17 +24,20 @@ class _HomePageState extends State<HomePage> {
                 expence: '14000',
               ),
               Expanded(
-                child: Container(
-                  child: Center(
-                    child: Column(
-                      children: [
-                        Transaction(
-                          transaction: 'Bye a new t-shirt',
-                          ammount: '200',
-                          incomeOrExp: 'exp',
-                        ),
-                      ],
-                    ),
+                child: Center(
+                  child: Column(
+                    children: const [
+                      Transaction(
+                        transaction: 'Bye a new t-shirt',
+                        ammount: '200',
+                        incomeOrExp: 'expence',
+                      ),
+                      Transaction(
+                        transaction: 'Honorium for duty',
+                        ammount: '300',
+                        incomeOrExp: 'income',
+                      ),
+                    ],
                   ),
                 ),
               ),

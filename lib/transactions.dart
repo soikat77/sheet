@@ -13,7 +13,7 @@ class Transaction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(12.0),
+      padding: const EdgeInsets.all(8.0),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(12),
         child: Container(
@@ -32,9 +32,11 @@ class Transaction extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '\$ $ammount',
-                    style: const TextStyle(
+                    '${incomeOrExp == 'expence' ? ' - ' : ' + '}\$ $ammount',
+                    style: TextStyle(
                       fontSize: 16,
+                      color:
+                          incomeOrExp == 'expence' ? Colors.red : Colors.green,
                     ),
                   ),
                 ],

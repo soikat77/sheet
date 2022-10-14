@@ -29,6 +29,11 @@ class GoogleSheetsApi {
   // declare worksheet by title
   static Worksheet? _worksheet;
 
+  // keeping track of
+  static int tansactionCount = 0;
+  static List<List<dynamic>> currentTransactions = [];
+  static bool loading = true;
+
   // init spreadsheet
   Future init() async {
     final ss = await _gsheets.spreadsheet(_spreadsheetId);

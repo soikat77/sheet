@@ -51,10 +51,10 @@ class TopNeuCard extends StatelessWidget {
                         borderRadius: BorderRadius.circular(50),
                         color: Colors.white,
                       ),
-                      child: Icon(
+                      child: const Icon(
                         Icons.arrow_upward,
                         size: 36,
-                        color: Colors.green[600],
+                        color: Colors.green,
                       ),
                     ),
                     const SizedBox(width: 12.0),
@@ -106,10 +106,10 @@ class TopNeuCard extends StatelessWidget {
                         borderRadius: BorderRadius.circular(50),
                         color: Colors.white,
                       ),
-                      child: Icon(
+                      child: const Icon(
                         Icons.arrow_downward,
                         size: 36,
-                        color: Colors.red[600],
+                        color: Colors.red,
                       ),
                     ),
                   ],
