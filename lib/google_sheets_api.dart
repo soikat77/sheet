@@ -91,4 +91,26 @@ class GoogleSheetsApi {
       isIncome == true ? 'income' : 'expence',
     ]);
   }
+
+  // calculate total income
+  static double calculateIncome() {
+    double totalIncome = 0;
+    for (int i = 0; i < currentTransactions.length; i++) {
+      if (currentTransactions[i][2] == 'income') {
+        totalIncome += double.parse(currentTransactions[i][1]);
+      }
+    }
+    return totalIncome;
+  }
+
+  // calculate total expence
+  static double calculateExpencee() {
+    double totalExp = 0;
+    for (int i = 0; i < currentTransactions.length; i++) {
+      if (currentTransactions[i][2] == 'expence') {
+        totalExp += double.parse(currentTransactions[i][1]);
+      }
+    }
+    return totalExp;
+  }
 }

@@ -157,10 +157,12 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
-                const TopNeuCard(
-                  balance: '200',
-                  income: '15000',
-                  expence: '14000',
+                TopNeuCard(
+                  balance: (GoogleSheetsApi.calculateIncome() -
+                          GoogleSheetsApi.calculateExpencee())
+                      .toString(),
+                  income: GoogleSheetsApi.calculateIncome().toString(),
+                  expence: GoogleSheetsApi.calculateExpencee().toString(),
                 ),
                 Expanded(
                   child: GoogleSheetsApi.loading == true
