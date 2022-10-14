@@ -15,6 +15,124 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  // collect user input
+  final _textcontrollerITEM = TextEditingController();
+  final _textcontrollerAMOUNT = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  bool _isIncome = false;
+
+  // Send the transaction data to g sheet
+  void _sendDatatoSheet() {
+    GoogleSheetsApi.insert(
+      _textcontrollerITEM.text,
+      _textcontrollerAMOUNT.text,
+      _isIncome,
+    );
+    setState(() {});
+  }
+
+  // add a new transaction
+  void addTransaction() {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return StatefulBuilder(builder: (BuildContext context, setState) {
+            return AlertDialog(
+              title: const Text('Add New Transaction'),
+              content: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        const Text('Expence'),
+                        Switch(
+                          value: _isIncome,
+                          onChanged: (newValue) {
+                            setState(
+                              () {
+                                _isIncome = newValue;
+                              },
+                            );
+                          },
+                        ),
+                        const Text('Income'),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Form(
+                            key: _formKey,
+                            child: TextFormField(
+                              decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                                hintText: 'Amount',
+                              ),
+                              validator: (text) {
+                                if (text == null || text.isEmpty) {
+                                  return 'Enter an Amount';
+                                }
+                                return null;
+                              },
+                              controller: _textcontrollerAMOUNT,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 5),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: TextField(
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              hintText: 'Transaction for what?',
+                            ),
+                            controller: _textcontrollerITEM,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              actions: [
+                MaterialButton(
+                  onPressed: () {
+                    _textcontrollerAMOUNT.clear();
+                    _textcontrollerITEM.clear();
+                    Navigator.of(context).pop();
+                  },
+                  color: Colors.grey[400],
+                  child: const Text('Cancel'),
+                ),
+                MaterialButton(
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      _sendDatatoSheet();
+                      _textcontrollerAMOUNT.clear();
+                      _textcontrollerITEM.clear();
+                      Navigator.of(context).pop();
+                    }
+                  },
+                  color: Theme.of(context).primaryColor,
+                  child: const Text(
+                    'Submit',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ],
+            );
+          });
+        });
+  }
+
   // waiting for fetching data from google sheet
   bool startTimer = false;
   void startLoading() {
@@ -70,7 +188,9 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                 ),
-                const PlusButton(),
+                PlusButton(
+                  function: addTransaction,
+                ),
               ],
             ),
           ),

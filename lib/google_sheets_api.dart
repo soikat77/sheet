@@ -75,4 +75,20 @@ class GoogleSheetsApi {
     // stop the loading indicator
     loading = false;
   }
+
+  // insert new transaction into the sheet
+  static Future insert(String name, String amount, bool isIncome) async {
+    if (_worksheet == null) return;
+    transactionCount++;
+    currentTransactions.add([
+      name,
+      amount,
+      isIncome == true ? 'income' : 'expence',
+    ]);
+    await _worksheet!.values.appendRow([
+      name,
+      amount,
+      isIncome == true ? 'income' : 'expence',
+    ]);
+  }
 }
